@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{5E0A52DE-E5BF-4C59-994E-91B18AE61A71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scanners">
+      <UniqueIdentifier>{0CD506A2-82BC-4F81-9988-E27FDEE1CE12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting">
+      <UniqueIdentifier>{B125B6C0-1C6B-4FE0-8919-A366FDBC8C92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ConsoleApplication1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\SyscallEngine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PEParser.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AntiTamper.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\EnforcementEngine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\StompScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\HookScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\SigScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\DriverScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\EmulatorScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\VADScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\ThreadInspector.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\OverlayAuditor.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\ArtifactScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\RegistryArtifactScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\NetworkAuditor.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\ProcessTreeAnalyzer.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\ScreenshotCapture.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\MemoryDumper.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\NTFSJournalScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\TimelineScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Reporting\ReportGenerator.cpp">
+      <Filter>Reporting</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\SyscallEngine.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PEParser.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AntiTamper.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\EnforcementEngine.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\StompScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\HookScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\SigScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\DriverScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\EmulatorScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\VADScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\ThreadInspector.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\OverlayAuditor.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\ArtifactScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\RegistryArtifactScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\NetworkAuditor.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\ProcessTreeAnalyzer.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\ScreenshotCapture.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\MemoryDumper.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\NTFSJournalScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\TimelineScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Reporting\ReportGenerator.hpp">
+      <Filter>Reporting</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{83d2418b-4f3e-49c0-ad27-95316c99c4f8}</ProjectGuid>
+    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <TargetName>White Team EXE</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <TargetName>White Team EXE</TargetName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;$(ProjectDir)GUI;$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;$(ProjectDir)GUI;$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="Core\SyscallEngine.cpp" />
+    <ClCompile Include="Core\PEParser.cpp" />
+    <ClCompile Include="Core\AntiTamper.cpp" />
+    <ClCompile Include="Core\EnforcementEngine.cpp" />
+    <ClCompile Include="Scanners\StompScanner.cpp" />
+    <ClCompile Include="Scanners\HookScanner.cpp" />
+    <ClCompile Include="Scanners\SigScanner.cpp" />
+    <ClCompile Include="Scanners\DriverScanner.cpp" />
+    <ClCompile Include="Scanners\EmulatorScanner.cpp" />
+    <ClCompile Include="Scanners\VADScanner.cpp" />
+    <ClCompile Include="Scanners\ThreadInspector.cpp" />
+    <ClCompile Include="Scanners\OverlayAuditor.cpp" />
+    <ClCompile Include="Scanners\ArtifactScanner.cpp" />
+    <ClCompile Include="Scanners\RegistryArtifactScanner.cpp" />
+    <ClCompile Include="Scanners\NetworkAuditor.cpp" />
+    <ClCompile Include="Scanners\ProcessTreeAnalyzer.cpp" />
+    <ClCompile Include="Scanners\ScreenshotCapture.cpp" />
+    <ClCompile Include="Scanners\MemoryDumper.cpp" />
+    <ClCompile Include="Scanners\NTFSJournalScanner.cpp" />
+    <ClCompile Include="Scanners\TimelineScanner.cpp" />
+    <ClCompile Include="Scanners\DLLProxyScanner.cpp" />
+    <ClCompile Include="Scanners\SpoofedThreadScanner.cpp" />
+    <ClCompile Include="Scanners\EncryptedStringScanner.cpp" />
+    <ClCompile Include="Scanners\ETWScanner.cpp" />
+    <ClCompile Include="Scanners\ProcessHollowingScanner.cpp" />
+    <ClCompile Include="Scanners\VirusTotalScanner.cpp" />
+    <ClCompile Include="Reporting\ReportGenerator.cpp" />
+    <ClCompile Include="GUI\ImGuiDashboard.cpp" />
+    <ClCompile Include="ImGui\imgui.cpp" />
+    <ClCompile Include="ImGui\imgui_draw.cpp" />
+    <ClCompile Include="ImGui\imgui_tables.cpp" />
+    <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\SyscallEngine.hpp" />
+    <ClInclude Include="Core\PEParser.hpp" />
+    <ClInclude Include="Core\AntiTamper.hpp" />
+    <ClInclude Include="Core\EnforcementEngine.hpp" />
+    <ClInclude Include="Scanners\StompScanner.hpp" />
+    <ClInclude Include="Scanners\HookScanner.hpp" />
+    <ClInclude Include="Scanners\SigScanner.hpp" />
+    <ClInclude Include="Scanners\DriverScanner.hpp" />
+    <ClInclude Include="Scanners\EmulatorScanner.hpp" />
+    <ClInclude Include="Scanners\VADScanner.hpp" />
+    <ClInclude Include="Scanners\ThreadInspector.hpp" />
+    <ClInclude Include="Scanners\OverlayAuditor.hpp" />
+    <ClInclude Include="Scanners\ArtifactScanner.hpp" />
+    <ClInclude Include="Scanners\RegistryArtifactScanner.hpp" />
+    <ClInclude Include="Scanners\NetworkAuditor.hpp" />
+    <ClInclude Include="Scanners\ProcessTreeAnalyzer.hpp" />
+    <ClInclude Include="Scanners\ScreenshotCapture.hpp" />
+    <ClInclude Include="Scanners\MemoryDumper.hpp" />
+    <ClInclude Include="Scanners\NTFSJournalScanner.hpp" />
+    <ClInclude Include="Scanners\TimelineScanner.hpp" />
+    <ClInclude Include="Scanners\DLLProxyScanner.hpp" />
+    <ClInclude Include="Scanners\SpoofedThreadScanner.hpp" />
+    <ClInclude Include="Scanners\EncryptedStringScanner.hpp" />
+    <ClInclude Include="Scanners\ETWScanner.hpp" />
+    <ClInclude Include="Scanners\ProcessHollowingScanner.hpp" />
+    <ClInclude Include="Scanners\VirusTotalScanner.hpp" />
+    <ClInclude Include="Reporting\ReportGenerator.hpp" />
+    <ClInclude Include="GUI\ImGuiDashboard.hpp" />
+    <ClInclude Include="ImGui\imgui.h" />
+    <ClInclude Include="ImGui\imconfig.h" />
+    <ClInclude Include="ImGui\imgui_internal.h" />
+    <ClInclude Include="ImGui\imstb_rectpack.h" />
+    <ClInclude Include="ImGui\imstb_textedit.h" />
+    <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="ImGui\imgui_impl_dx11.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
