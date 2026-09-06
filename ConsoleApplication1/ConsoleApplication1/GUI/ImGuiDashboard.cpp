@@ -463,7 +463,7 @@ namespace ImGuiDashboard {
         HWND hWnd = CreateWindowExW(
             WS_EX_APPWINDOW,
             wc.lpszClassName,
-            L"White Team EXE",
+            L"White Hat Corp",
             WS_POPUP | WS_MINIMIZEBOX | WS_VISIBLE,
             posX, posY, kWindowWidth, kWindowHeight,
             nullptr, nullptr, wc.hInstance, nullptr);
@@ -510,7 +510,7 @@ namespace ImGuiDashboard {
         ImGui_ImplWin32_Init(hWnd);
         ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
-        PushScanLog("White Team EXE Initialized.");
+        PushScanLog("White Hat Corp Initialized.");
         PushScanLog("Live Hardware Token: " + g_systemHWID.CompositeHWID);
         PushScanLog("CPU: " + g_systemHWID.CPUBrand);
 
@@ -996,7 +996,7 @@ namespace ImGuiDashboard {
                 ImGui::OpenPopup("Ban Center Modal");
             }
             if (ImGui::BeginPopupModal("Ban Center Modal", &g_showBanModal, ImGuiWindowFlags_AlwaysAutoResize)) {
-                ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "WHITE TEAM ENFORCEMENT & BAN DISPATCH");
+                ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "WHITE HAT CORP ENFORCEMENT & BAN DISPATCH");
                 ImGui::Separator();
                 ImGui::Text("Target: %s (PID: %d)", g_targetProcNameBuf, g_selectedPid);
                 ImGui::Text("HWID: %s", g_systemHWID.CompositeHWID.c_str());
@@ -1004,7 +1004,7 @@ namespace ImGuiDashboard {
                 ImGui::Spacing();
 
                 if (ImGui::Button(" [COPY ENFORCEMENT JSON] ")) {
-                    std::string payload = "{\"event\":\"WHITE_TEAM_BAN\",\"hwid\":\"" +
+                    std::string payload = "{\"event\":\"WHITE_HAT_CORP_BAN\",\"hwid\":\"" +
                         g_systemHWID.CompositeHWID + "\",\"target\":\"" + std::string(g_targetProcNameBuf) +
                         "\",\"status\":\"BANNED\"}";
                     ImGui::SetClipboardText(payload.c_str());

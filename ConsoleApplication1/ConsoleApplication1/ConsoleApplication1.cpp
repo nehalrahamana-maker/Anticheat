@@ -98,7 +98,7 @@ void PrintBanner() {
         SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
     }
 
-    SetConsoleTitleA("NEHAL ANTI-CHEAT // CYBER-SOC FORENSIC COMMAND CENTER v3.5");
+    SetConsoleTitleA("WHITE HAT CORP // CYBER-SOC FORENSIC COMMAND CENTER v3.5");
 
     std::cout << "\033[38;2;0;242;254m";
     std::cout << "███╗   ██╗███████╗██╗  ██╗ █████╗ ██╗         █████╗  ██████╗\n";
@@ -113,9 +113,10 @@ void PrintBanner() {
     std::cout << "\033[38;2;255;0;128m";
     std::cout << "╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝  ╚═╝ ╚═════╝\n";
     std::cout << "\033[0m";
+
     std::cout << "\033[38;2;0;242;254m┌────────────────────────────────────────────────────────────────────────┐\033[0m\n";
-    std::cout << "\033[38;2;0;242;254m│WHITE HAT !   \033[0m \033[38;2;0;242;254m│\033[0m\n";
-    std::cout << "\033[38;2;0;242;254m│  \033[0m \033[38;2;0;242;254m│\033[0m\n";
+    std::cout << "\033[38;2;0;242;254m│  WHITE HAT CORP // ADVANCED ANTI-CHEAT & FORENSIC SCANNER               │\033[0m\n";
+    std::cout << "\033[38;2;0;242;254m│  Kernel Bypass Detection • Memory Forensics • Yara Signatures • ImGui  │\033[0m\n";
     std::cout << "\033[38;2;0;242;254m└────────────────────────────────────────────────────────────────────────┘\033[0m\n\n";
 }
 
@@ -191,7 +192,7 @@ int main(int argc, char* argv[]) {
         }
         else if (arg == "--help" || arg == "-h") {
             PrintBanner();
-            std::cout << "Usage: AntiCheatScanner.exe [options]\n";
+            std::cout << "Usage: \"White Hat Corp.exe\" [options]\n";
             std::cout << "Options:\n";
             std::cout << "  --gui                              Launch native DirectX 11 + Dear ImGui Cyber-SOC Desktop UI (Default)\n";
             std::cout << "  --cli                              Force CLI terminal scanner mode\n";
