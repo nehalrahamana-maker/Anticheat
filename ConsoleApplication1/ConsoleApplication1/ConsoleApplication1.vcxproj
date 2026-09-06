@@ -153,6 +153,7 @@
     <ClCompile Include="Scanners\DLLProxyScanner.cpp" />
     <ClCompile Include="Scanners\SpoofedThreadScanner.cpp" />
     <ClCompile Include="Scanners\EncryptedStringScanner.cpp" />
+    <ClCompile Include="Scanners\CheatStringScanner.cpp" />
     <ClCompile Include="Scanners\ETWScanner.cpp" />
     <ClCompile Include="Scanners\ProcessHollowingScanner.cpp" />
     <ClCompile Include="Scanners\VirusTotalScanner.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Scanners\DLLProxyScanner.hpp" />
     <ClInclude Include="Scanners\SpoofedThreadScanner.hpp" />
     <ClInclude Include="Scanners\EncryptedStringScanner.hpp" />
+    <ClInclude Include="Scanners\CheatStringScanner.hpp" />
     <ClInclude Include="Scanners\ETWScanner.hpp" />
     <ClInclude Include="Scanners\ProcessHollowingScanner.hpp" />
     <ClInclude Include="Scanners\VirusTotalScanner.hpp" />

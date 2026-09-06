@@ -45,10 +45,16 @@
     <ClCompile Include="Scanners\HookScanner.cpp">
       <Filter>Scanners</Filter>
     </ClCompile>
-    <ClCompile Include="Scanners\SigScanner.cpp">
+    <ClCompile Include="Scanners\EncryptedStringScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\CheatStringScanner.cpp">
       <Filter>Scanners</Filter>
     </ClCompile>
     <ClCompile Include="Scanners\DriverScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanners\SigScanner.cpp">
       <Filter>Scanners</Filter>
     </ClCompile>
     <ClCompile Include="Scanners\EmulatorScanner.cpp">
@@ -110,10 +116,16 @@
     <ClInclude Include="Scanners\HookScanner.hpp">
       <Filter>Scanners</Filter>
     </ClInclude>
-    <ClInclude Include="Scanners\SigScanner.hpp">
+    <ClInclude Include="Scanners\EncryptedStringScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\CheatStringScanner.hpp">
       <Filter>Scanners</Filter>
     </ClInclude>
     <ClInclude Include="Scanners\DriverScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanners\SigScanner.hpp">
       <Filter>Scanners</Filter>
     </ClInclude>
     <ClInclude Include="Scanners\EmulatorScanner.hpp">
