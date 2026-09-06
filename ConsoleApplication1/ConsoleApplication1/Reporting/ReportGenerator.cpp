@@ -173,7 +173,14 @@ namespace ReportGenerator {
             report.EncryptedStringDetections.size() +
             report.SpoofedThreadDetections.size() +
             report.ETWDetections.size() +
-            report.HollowingDetections.size();
+            report.HollowingDetections.size() +
+            report.CheatStringDetections.size() +
+            report.PSDetections.size() +
+            report.PrefetchDetections.size() +
+            report.DnsDetections.size() +
+            report.ShimcacheDetections.size() +
+            report.AmcacheDetections.size() +
+            report.YaraDetections.size();
 
         size_t critCount = 0;
         size_t highCount = 0;
@@ -198,6 +205,13 @@ namespace ReportGenerator {
         for (const auto& d : report.SpoofedThreadDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
         for (const auto& d : report.ETWDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
         for (const auto& d : report.HollowingDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.CheatStringDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.PSDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.PrefetchDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.DnsDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.ShimcacheDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.AmcacheDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
+        for (const auto& d : report.YaraDetections) { if (d.Severity == "CRITICAL") critCount++; else highCount++; }
 
         size_t criticalCount = critCount;
         size_t warningCount = highCount;
@@ -1164,6 +1178,9 @@ namespace ReportGenerator {
         html << "    <div class='nav-item' onclick=\"switchTab('spoofthreads')\"><span>🕵️ Spoofed Call-Stack Threads</span><span class='nav-badge " << (report.SpoofedThreadDetections.empty() ? "" : "danger") << "'>" << report.SpoofedThreadDetections.size() << "</span></div>\n";
         html << "    <div class='nav-item' onclick=\"switchTab('etw')\"><span>⚡ ETW & Event Log Tampering</span><span class='nav-badge " << (report.ETWDetections.empty() ? "" : "danger") << "'>" << report.ETWDetections.size() << "</span></div>\n";
         html << "    <div class='nav-item' onclick=\"switchTab('hollowing')\"><span>🕳️ Process Hollowing & Doppelganging</span><span class='nav-badge " << (report.HollowingDetections.empty() ? "" : "danger") << "'>" << report.HollowingDetections.size() << "</span></div>\n";
+        html << "    <div class='nav-item' onclick=\"switchTab('cheatstr')\"><span>🎯 Verified Cheat Strings</span><span class='nav-badge " << (report.CheatStringDetections.empty() ? "" : "danger") << "'>" << report.CheatStringDetections.size() << "</span></div>\n";
+        html << "    <div class='nav-item' onclick=\"switchTab('yara')\"><span>📜 Native YARA Threat Rules</span><span class='nav-badge " << (report.YaraDetections.empty() ? "" : "danger") << "'>" << report.YaraDetections.size() << "</span></div>\n";
+        html << "    <div class='nav-item' onclick=\"switchTab('forensics_more')\"><span>🔍 OS Execution Ledger (PS/DNS/Cache)</span><span class='nav-badge " << ((report.PSDetections.empty() && report.PrefetchDetections.empty() && report.DnsDetections.empty() && report.ShimcacheDetections.empty() && report.AmcacheDetections.empty()) ? "" : "danger") << "'>" << (report.PSDetections.size() + report.PrefetchDetections.size() + report.DnsDetections.size() + report.ShimcacheDetections.size() + report.AmcacheDetections.size()) << "</span></div>\n";
 
         html << "  </aside>\n";
 
@@ -1174,7 +1191,7 @@ namespace ReportGenerator {
         html << "    <div class='top-hud'>\n";
         html << "      <div class='hud-search-box'>\n";
         html << "        <span class='hud-search-icon'>⚡</span>\n";
-        html << "        <input type='text' id='globalSearch' placeholder='Live filter across all 18 forensic engines...' oninput='filterTables()'>\n";
+        html << "        <input type='text' id='globalSearch' placeholder='Live filter across all 24 forensic engines...' oninput='filterTables()'>\n";
         html << "      </div>\n";
         html << "      <div class='hud-controls'>\n";
         html << "        <button class='btn btn-glass' style='border-color:#eab308; color:#facc15; font-weight:700;' onclick=\"openWarningLogsModal('WARNING')\">⚠️ Warning Logs (" << warningCount << ")</button>\n";
@@ -1815,6 +1832,96 @@ namespace ReportGenerator {
         html << "    </div>\n";
 
         // -------------------------------------------------------------
+        // TAB: CHEATSTR (VERIFIED CHEAT STRINGS)
+        // -------------------------------------------------------------
+        html << "    <div id='tab-cheatstr' class='tab-content'>\n";
+        html << "      <div class='card'>\n";
+        html << "        <div class='card-header'><h2 class='card-title'>🎯 Multi-Factor Verified Plaintext Cheat Strings</h2><span class='badge " << (report.CheatStringDetections.empty() ? "badge-clean" : "badge-critical") << "'>" << report.CheatStringDetections.size() << " Hits</span></div>\n";
+        html << "        <div class='card-body'>\n";
+        if (report.CheatStringDetections.empty()) {
+            html << "          <div class='empty-state'><div class='empty-state-icon'>🛡️</div><h3>Zero Cheat Strings Detected</h3><p>Memory scans and disk drop auditing verified clean.</p></div>\n";
+        } else {
+            html << "          <table class='data-table'>\n";
+            html << "            <thead><tr><th>Detection</th><th>Severity</th><th>Confidence</th><th>Evidence & Context</th></tr></thead>\n";
+            html << "            <tbody>\n";
+            for (const auto& d : report.CheatStringDetections) {
+                std::string sevClass = d.Severity == "CRITICAL" ? "badge-critical" : "badge-high";
+                html << "              <tr>";
+                html << "<td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td>";
+                html << "<td><span class='badge " << sevClass << "'>" << EscapeHTML(d.Severity) << "</span></td>";
+                html << "<td>" << (int)(d.Confidence * 100) << "%</td>";
+                html << "<td>" << EscapeHTML(d.Description) << "</td>";
+                html << "</tr>\n";
+            }
+            html << "            </tbody>\n";
+            html << "          </table>\n";
+        }
+        html << "        </div>\n";
+        html << "      </div>\n";
+        html << "    </div>\n";
+
+        // -------------------------------------------------------------
+        // TAB: YARA (NATIVE YARA RULE ENGINE)
+        // -------------------------------------------------------------
+        html << "    <div id='tab-yara' class='tab-content'>\n";
+        html << "      <div class='card'>\n";
+        html << "        <div class='card-header'><h2 class='card-title'>📜 Native YARA Threat Rule Matches</h2><span class='badge " << (report.YaraDetections.empty() ? "badge-clean" : "badge-critical") << "'>" << report.YaraDetections.size() << " Matches</span></div>\n";
+        html << "        <div class='card-body'>\n";
+        if (report.YaraDetections.empty()) {
+            html << "          <div class='empty-state'><div class='empty-state-icon'>🛡️</div><h3>Zero YARA Threat Matches</h3><p>All in-memory process regions and dropped binaries matched clean against compiled YARA rules.</p></div>\n";
+        } else {
+            html << "          <table class='data-table'>\n";
+            html << "            <thead><tr><th>Rule Name</th><th>Pattern Hit</th><th>Severity</th><th>Confidence</th><th>Details</th></tr></thead>\n";
+            html << "            <tbody>\n";
+            for (const auto& d : report.YaraDetections) {
+                std::string sevClass = d.Severity == "CRITICAL" ? "badge-critical" : "badge-high";
+                html << "              <tr>";
+                html << "<td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td>";
+                html << "<td class='code-block'>" << EscapeHTML(d.MatchedPattern) << "</td>";
+                html << "<td><span class='badge " << sevClass << "'>" << EscapeHTML(d.Severity) << "</span></td>";
+                html << "<td>" << (int)(d.Confidence * 100) << "%</td>";
+                html << "<td>" << EscapeHTML(d.Description) << "</td>";
+                html << "</tr>\n";
+            }
+            html << "            </tbody>\n";
+            html << "          </table>\n";
+        }
+        html << "        </div>\n";
+        html << "      </div>\n";
+        html << "    </div>\n";
+
+        // -------------------------------------------------------------
+        // TAB: FORENSICS_MORE (PS / PREFETCH / DNS / SHIMCACHE / AMCACHE)
+        // -------------------------------------------------------------
+        html << "    <div id='tab-forensics_more' class='tab-content'>\n";
+        html << "      <div class='card'>\n";
+        html << "        <div class='card-header'><h2 class='card-title'>🔍 OS Execution Ledger (PowerShell, DNS, Prefetch, Shimcache, Amcache)</h2></div>\n";
+        html << "        <div class='card-body'>\n";
+        html << "          <table class='data-table'>\n";
+        html << "            <thead><tr><th>Subsystem</th><th>Artifact / Target</th><th>Severity</th><th>Details</th></tr></thead>\n";
+        html << "            <tbody>\n";
+        for (const auto& d : report.PSDetections) {
+            html << "              <tr><td><span class='badge badge-critical'>PowerShell</span></td><td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td><td><span class='badge badge-critical'>" << EscapeHTML(d.Severity) << "</span></td><td>" << EscapeHTML(d.Description) << "</td></tr>\n";
+        }
+        for (const auto& d : report.PrefetchDetections) {
+            html << "              <tr><td><span class='badge badge-high'>Prefetch</span></td><td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td><td><span class='badge badge-high'>" << EscapeHTML(d.Severity) << "</span></td><td>" << EscapeHTML(d.Description) << "</td></tr>\n";
+        }
+        for (const auto& d : report.DnsDetections) {
+            html << "              <tr><td><span class='badge badge-critical'>DNS Cache</span></td><td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td><td><span class='badge badge-critical'>" << EscapeHTML(d.Severity) << "</span></td><td>" << EscapeHTML(d.Description) << "</td></tr>\n";
+        }
+        for (const auto& d : report.ShimcacheDetections) {
+            html << "              <tr><td><span class='badge badge-high'>Shimcache</span></td><td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td><td><span class='badge badge-high'>" << EscapeHTML(d.Severity) << "</span></td><td>" << EscapeHTML(d.Description) << "</td></tr>\n";
+        }
+        for (const auto& d : report.AmcacheDetections) {
+            html << "              <tr><td><span class='badge badge-high'>Amcache</span></td><td><strong>" << EscapeHTML(d.DetectionName) << "</strong></td><td><span class='badge badge-high'>" << EscapeHTML(d.Severity) << "</span></td><td>" << EscapeHTML(d.Description) << "</td></tr>\n";
+        }
+        html << "            </tbody>\n";
+        html << "          </table>\n";
+        html << "        </div>\n";
+        html << "      </div>\n";
+        html << "    </div>\n";
+
+        // -------------------------------------------------------------
         // WARNING / THREAT LOGS MODAL (IMAGE ACCURATE CARDS & FILTERS)
         // -------------------------------------------------------------
         html << "<div id='warningLogsModal' class='modal-backdrop'>\n";
@@ -2127,22 +2234,22 @@ namespace ReportGenerator {
             "    setTimeout(() => t.remove(), 4000);\n"
             "  }).catch(() => prompt('Copy this path:', text));\n"
             "}\n"
-            "</script>\n";
+            "</script>\n"
+            "  </main>\n"
+            "</div>\n"
+            "</body>\n</html>\n";
 
-        html << "</body>\n</html>\n";
         html.close();
 
         if (autoOpen) {
-            std::string cmd = "start \"\" \"" + outputPath + "\"";
-            system(cmd.c_str());
+            ShellExecuteA(NULL, "open", outputPath.c_str(), NULL, NULL, SW_SHOWNORMAL);
         }
-
         return true;
     }
 
     bool GenerateJSONReport(const ScanReportData& report, const std::string& outputPath) {
         std::ofstream json(outputPath);
-        if (!json) return false;
+        if (!json.is_open()) return false;
 
         json << "{\n";
         json << "  \"engine_suite\": \"AETHER-ZERO-ENTERPRISE-CORE-v5.0\",\n";
@@ -2173,7 +2280,14 @@ namespace ReportGenerator {
         json << "  \"encrypted_string_detections\": " << report.EncryptedStringDetections.size() << ",\n";
         json << "  \"spoofed_thread_detections\": " << report.SpoofedThreadDetections.size() << ",\n";
         json << "  \"etw_tampering_detections\": " << report.ETWDetections.size() << ",\n";
-        json << "  \"process_hollowing_detections\": " << report.HollowingDetections.size() << "\n";
+        json << "  \"process_hollowing_detections\": " << report.HollowingDetections.size() << ",\n";
+        json << "  \"cheat_string_detections\": " << report.CheatStringDetections.size() << ",\n";
+        json << "  \"yara_rule_detections\": " << report.YaraDetections.size() << ",\n";
+        json << "  \"powershell_forensic_detections\": " << report.PSDetections.size() << ",\n";
+        json << "  \"dns_cache_detections\": " << report.DnsDetections.size() << ",\n";
+        json << "  \"prefetch_detections\": " << report.PrefetchDetections.size() << ",\n";
+        json << "  \"shimcache_detections\": " << report.ShimcacheDetections.size() << ",\n";
+        json << "  \"amcache_detections\": " << report.AmcacheDetections.size() << "\n";
         json << "}\n";
         json.close();
         return true;

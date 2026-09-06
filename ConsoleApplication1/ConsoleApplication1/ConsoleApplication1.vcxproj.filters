@@ -164,6 +164,12 @@
     <ClInclude Include="Scanners\TimelineScanner.hpp">
       <Filter>Scanners</Filter>
     </ClInclude>
+    <ClCompile Include="Scanners\YaraScanner.cpp">
+      <Filter>Scanners</Filter>
+    </ClCompile>
+    <ClInclude Include="Scanners\YaraScanner.hpp">
+      <Filter>Scanners</Filter>
+    </ClInclude>
     <ClInclude Include="Reporting\ReportGenerator.hpp">
       <Filter>Reporting</Filter>
     </ClInclude>

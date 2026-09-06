@@ -29,6 +29,14 @@
 
 namespace ReportGenerator {
 
+    struct GenericDetection {
+        std::string DetectionName;
+        std::string Severity;
+        std::string Description;
+        std::string MatchedPattern;
+        float Confidence = 1.0f;
+    };
+
     struct ScanReportData {
         DWORD TotalProcessesScanned = 0;
         DWORD TotalModulesScanned = 0;
@@ -62,6 +70,15 @@ namespace ReportGenerator {
         std::vector<SpoofedThreadScanner::SpoofedThreadDetection>     SpoofedThreadDetections;
         std::vector<ETWScanner::ETWDetection>                         ETWDetections;
         std::vector<ProcessHollowingScanner::ProcessHollowingDetection> HollowingDetections;
+
+        // Forensic & Custom Scanners
+        std::vector<GenericDetection> CheatStringDetections;
+        std::vector<GenericDetection> PSDetections;
+        std::vector<GenericDetection> PrefetchDetections;
+        std::vector<GenericDetection> DnsDetections;
+        std::vector<GenericDetection> ShimcacheDetections;
+        std::vector<GenericDetection> AmcacheDetections;
+        std::vector<GenericDetection> YaraDetections;
     };
 
     // Generate self-contained interactive HTML proof panel and launch it in default browser

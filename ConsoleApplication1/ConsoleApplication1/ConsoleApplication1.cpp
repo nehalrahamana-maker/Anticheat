@@ -35,6 +35,13 @@
 #include "SpoofedThreadScanner.hpp"
 #include "ETWScanner.hpp"
 #include "ProcessHollowingScanner.hpp"
+#include "CheatStringScanner.hpp"
+#include "PowerShellClearedRunScanner.hpp"
+#include "PrefetchScanner.hpp"
+#include "DnsCacheScanner.hpp"
+#include "ShimcacheScanner.hpp"
+#include "AmcacheScanner.hpp"
+#include "YaraScanner.hpp"
 
 // Check if running as administrator
 static bool IsRunningAsAdmin() {
@@ -463,6 +470,108 @@ int main(int argc, char* argv[]) {
             report.HollowingDetections = ProcessHollowingScanner::ScanAllProcessesHollowing();
         }
 
+        // 19. CheatString Plaintext Scanner (multi-factor verified)
+        ReportProgress(0.993f, "[19/23] Scanning process memory for verified cheat strings...", "Multi-factor confidence verification on all hits...", "[19/23] CheatString Scanner — Plaintext Keyword + Verification Pipeline");
+        {
+            auto cheatStrResults = CheatStringScanner::ScanAllProcesses();
+            for (const auto& d : cheatStrResults) {
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[CHEATSTR] " + d.Category + " — " + d.MatchedString;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.CheatStringDetections.push_back(gd);
+            }
+            auto diskResults = CheatStringScanner::ScanDiskExecutables();
+            for (const auto& d : diskResults) {
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[DISK_STR] " + d.Category + " — " + d.MatchedString;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.CheatStringDetections.push_back(gd);
+            }
+        }
+
+        // 20. PowerShell Cleared Run / Obfuscation Scanner
+        ReportProgress(0.995f, "[20/23] Scanning PowerShell forensic artifacts...", "Checking PS history, ScriptBlock logs, profiles, and event log clears...", "[20/23] PowerShell Cleared-Run Scanner — Event 1102/104 & History Wipe");
+        {
+            auto psResults = PowerShellClearedRunScanner::ScanAll();
+            for (const auto& d : psResults) {
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[PSHELL] " + d.FindingTypeName;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.PSDetections.push_back(gd);
+            }
+        }
+
+        // 21. Prefetch Scanner
+        ReportProgress(0.996f, "[21/23] Scanning Windows Prefetch files...", "Parsing SCCA headers for cheat executable evidence...", "[21/23] Prefetch Scanner — C:\\Windows\\Prefetch SCCA Forensics");
+        {
+            auto pfResults = PrefetchScanner::ScanPrefetch();
+            for (const auto& d : pfResults) {
+                if (!d.IsCheatMatch) continue;
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[PREFETCH] " + d.ExeName;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.PrefetchDetections.push_back(gd);
+            }
+        }
+
+        // 22. DNS Cache Scanner
+        ReportProgress(0.997f, "[22/23] Auditing DNS resolver cache...", "Flagging known cheat C2/download domains...", "[22/23] DNS Cache Scanner — DnsGetCacheDataTable Forensics");
+        {
+            auto dnsResults = DnsCacheScanner::ScanDnsCache();
+            for (const auto& d : dnsResults) {
+                if (!d.IsCheatDomain) continue;
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[DNS] " + d.HostName;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.DnsDetections.push_back(gd);
+            }
+        }
+
+        // 23. Shimcache + Amcache Scanners
+        ReportProgress(0.999f, "[23/23] Scanning Shimcache & Amcache execution artifacts...", "Parsing AppCompatCache and Amcache.hve for deleted cheat evidence...", "[23/23] Shimcache/Amcache — AppCompatCache + Amcache.hve Forensics");
+        {
+            auto shimResults = ShimcacheScanner::ScanShimcache();
+            for (const auto& d : shimResults) {
+                if (!d.IsCheatMatch) continue;
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[SHIMCACHE] " + d.FilePathNarrow;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.ShimcacheDetections.push_back(gd);
+            }
+            auto amcResults = AmcacheScanner::ScanAmcache();
+            for (const auto& d : amcResults) {
+                if (!d.IsCheatMatch && !d.IsKnownCheatHash) continue;
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName = "[AMCACHE] " + d.AppName;
+                gd.Severity      = d.Severity;
+                gd.Description   = d.Description;
+                report.AmcacheDetections.push_back(gd);
+            }
+        }
+
+        // 24. Native YARA Multi-Rule Threat Sweep (Memory + Disk Drops)
+        ReportProgress(0.999f, "[24/24] Executing YARA Multi-Engine Rule Sweep...", "Matching compiled YARA rules against private process memory and drop locations...", "[24/24] YARA Scanner — Multi-Pattern Bytecode & Signature Engine");
+        {
+            auto yaraResults = YaraScanner::RunCompleteYaraSweep(curTargetPid, curTargetName);
+            for (const auto& d : yaraResults) {
+                ReportGenerator::GenericDetection gd;
+                gd.DetectionName  = "[YARA] " + d.RuleName;
+                gd.Severity       = d.Severity;
+                gd.Description    = d.Description + " | Target: " + d.TargetIdentifier;
+                if (!d.MatchedPatterns.empty()) {
+                    gd.MatchedPattern = d.MatchedPatterns[0];
+                }
+                gd.Confidence     = d.Confidence;
+                report.YaraDetections.push_back(gd);
+            }
+        }
+
         // Extract Hardware Ban Fingerprint (HWID)
         report.SystemHWID = EnforcementEngine::GetSystemHWID();
 
@@ -470,7 +579,7 @@ int main(int argc, char* argv[]) {
         double elapsedMs = std::chrono::duration<double, std::milli>(endTime - startTime).count();
 
         if (!isLiveLoop && !isGuiMode) {
-            std::cout << "\033[92m[+] Complete 18-Engine Sweep Finished in " << std::fixed << std::setprecision(2) << (elapsedMs / 1000.0) << " seconds.\033[0m\n\n";
+            std::cout << "\033[92m[+] Complete 24-Engine Forensic Sweep Finished in " << std::fixed << std::setprecision(2) << (elapsedMs / 1000.0) << " seconds.\033[0m\n\n";
         }
 
         return report;
@@ -501,7 +610,11 @@ int main(int argc, char* argv[]) {
                 report.NTFSDetections.size() + report.TimelineDetections.size() +
                 report.DLLProxyDetections.size() + report.EncryptedStringDetections.size() +
                 report.SpoofedThreadDetections.size() +
-                report.ETWDetections.size() + report.HollowingDetections.size();
+                report.ETWDetections.size() + report.HollowingDetections.size() +
+                report.CheatStringDetections.size() + report.PSDetections.size() +
+                report.PrefetchDetections.size() + report.DnsDetections.size() +
+                report.ShimcacheDetections.size() + report.AmcacheDetections.size() +
+                report.YaraDetections.size();
 
             ReportGenerator::GenerateHTMLProofPanel(report, "DetectionPanel.html", firstRun && autoOpenBrowser);
             ReportGenerator::GenerateJSONReport(report, "ScanEvidence.json");
@@ -512,7 +625,13 @@ int main(int argc, char* argv[]) {
                 DWORD suspectCheatPid = 0;
                 std::string killReason = "Critical Threat Detected";
 
-                if (!report.EmulatorDetections.empty()) {
+                if (!report.YaraDetections.empty()) {
+                    killReason = "YARA Rule Triggered: " + report.YaraDetections.front().DetectionName;
+                }
+                else if (!report.CheatStringDetections.empty()) {
+                    killReason = "Verified Cheat String: " + report.CheatStringDetections.front().DetectionName;
+                }
+                else if (!report.EmulatorDetections.empty()) {
                     suspectCheatPid = report.EmulatorDetections.front().ProcessId;
                     killReason = "Unauthorized Handle Bridge to Game";
                 }
@@ -552,14 +671,24 @@ int main(int argc, char* argv[]) {
             report.NTFSDetections.size() + report.TimelineDetections.size() +
             report.DLLProxyDetections.size() + report.EncryptedStringDetections.size() +
             report.SpoofedThreadDetections.size() +
-            report.ETWDetections.size() + report.HollowingDetections.size();
+            report.ETWDetections.size() + report.HollowingDetections.size() +
+            report.CheatStringDetections.size() + report.PSDetections.size() +
+            report.PrefetchDetections.size() + report.DnsDetections.size() +
+            report.ShimcacheDetections.size() + report.AmcacheDetections.size() +
+            report.YaraDetections.size();
 
         // Trigger Real-Time Enforcement (Auto-Kill & Ban Telemetry) if threats exist
         if (totalAlerts > 0 && (enforceConfig.AutoKillEnabled || !enforceConfig.BanWebhookUrl.empty())) {
             DWORD suspectCheatPid = 0;
             std::string killReason = "Critical Threat Detected";
 
-            if (!report.EmulatorDetections.empty()) {
+            if (!report.YaraDetections.empty()) {
+                killReason = "YARA Rule Triggered: " + report.YaraDetections.front().DetectionName;
+            }
+            else if (!report.CheatStringDetections.empty()) {
+                killReason = "Verified Cheat String: " + report.CheatStringDetections.front().DetectionName;
+            }
+            else if (!report.EmulatorDetections.empty()) {
                 suspectCheatPid = report.EmulatorDetections.front().ProcessId;
                 killReason = "Unauthorized Handle Bridge to Game";
             }
@@ -591,10 +720,12 @@ int main(int argc, char* argv[]) {
         std::cout << "\033[38;2;0;242;254m│\033[0m  Unbacked Executable Memory (VAD):    \033[38;2;255;30;86m" << std::setw(6) << report.VADDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
         std::cout << "\033[38;2;0;242;254m│\033[0m  Thread APC & Context Integrity (Dr#):\033[38;2;255;30;86m" << std::setw(6) << report.ThreadDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
         std::cout << "\033[38;2;0;242;254m│\033[0m  Transparent Viewport & Overlays:     \033[38;2;255;119;0m" << std::setw(6) << report.OverlayDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
-        std::cout << "\033[38;2;0;242;254m│\033[0m  Prefetch & File System Evidence:     \033[38;2;255;30;86m" << std::setw(6) << report.FileArtifactDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
-        std::cout << "\033[38;2;0;242;254m│\033[0m  Execution Ledger & BAM Artifacts:    \033[38;2;255;30;86m" << std::setw(6) << report.RegArtifactDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
-        std::cout << "\033[38;2;0;242;254m│\033[0m  Alternate Data Streams (Zone.Id):    \033[38;2;255;30;86m" << std::setw(6) << report.NTFSDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
-        std::cout << "\033[38;2;0;242;254m│\033[0m  Application History & Timeline:      \033[38;2;255;119;0m" << std::setw(6) << report.TimelineDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  Prefetch & File System Evidence:     \033[38;2;255;30;86m" << std::setw(6) << (report.FileArtifactDetections.size() + report.PrefetchDetections.size()) << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  Execution Ledger (Shim/Amcache/BAM): \033[38;2;255;30;86m" << std::setw(6) << (report.RegArtifactDetections.size() + report.ShimcacheDetections.size() + report.AmcacheDetections.size()) << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  PowerShell Cleared-Run Forensics:    \033[38;2;255;30;86m" << std::setw(6) << report.PSDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  DNS Cache Suspicious Domains:        \033[38;2;255;30;86m" << std::setw(6) << report.DnsDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  Verified Plaintext Cheat Strings:    \033[38;2;255;30;86m" << std::setw(6) << report.CheatStringDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
+        std::cout << "\033[38;2;0;242;254m│\033[0m  Native YARA Rule Threat Matches:     \033[38;2;255;30;86m" << std::setw(6) << report.YaraDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
         std::cout << "\033[38;2;0;242;254m│\033[0m  Outbound Network Sockets:            \033[38;2;255;30;86m" << std::setw(6) << report.NetworkConnections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
         std::cout << "\033[38;2;0;242;254m│\033[0m  Process Hierarchy & Loaders:         \033[38;2;255;30;86m" << std::setw(6) << report.ProcessTreeDetections.size() << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";
         std::cout << "\033[38;2;0;242;254m│\033[0m  API Prologue & Syscall Integrity:    \033[38;2;255;30;86m" << std::setw(6) << (report.HookDetections.size() + report.ClbDllDetections.size()) << "\033[0m                                 \033[38;2;0;242;254m│\033[0m\n";

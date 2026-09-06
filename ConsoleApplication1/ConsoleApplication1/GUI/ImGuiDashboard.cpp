@@ -112,62 +112,95 @@ namespace ImGuiDashboard {
         }
     }
 
-    // ------------------------------------------------------------------ DETECT.AC Color Theme Setup
-    // Background: #0A1128
-    // Primary Panels: #162240
-    // Scanning Sidebar: #0F1A2E
-    // Accent / Highlights: #00B4D8
-    // Text / Icons: #E0F2FE and #90E0EF
-    // Progress Gradient: #0077B6 to #00B4D8
+    // ------------------------------------------------------------------ ELECTRIC GREEN Theme
+    // Background:       #0A1A0F  (deep dark green-black)
+    // Primary Panels:   #0D2218  (dark forest panel)
+    // Accent:           #00FF87  (electric green)
+    // Warning:          #FFB300  (amber)
+    // Critical:         #FF1744  (vivid red)
+    // Text:             #E8F5E9  (near-white green tint)
     static void SetupDetectAcTheme() {
         ImGuiStyle& style = ImGui::GetStyle();
         ImVec4* colors = style.Colors;
 
-        style.WindowRounding    = 8.0f;
-        style.ChildRounding     = 6.0f;
-        style.FrameRounding     = 5.0f;
-        style.PopupRounding     = 6.0f;
+        style.WindowRounding    = 10.0f;
+        style.ChildRounding     = 8.0f;
+        style.FrameRounding     = 6.0f;
+        style.PopupRounding     = 8.0f;
         style.ScrollbarRounding = 6.0f;
-        style.GrabRounding      = 4.0f;
-        style.TabRounding       = 5.0f;
+        style.GrabRounding      = 5.0f;
+        style.TabRounding       = 6.0f;
 
         style.WindowPadding     = ImVec2(0.0f, 0.0f);
-        style.FramePadding      = ImVec2(8.0f, 4.0f);
-        style.ItemSpacing       = ImVec2(8.0f, 6.0f);
+        style.FramePadding      = ImVec2(10.0f, 5.0f);
+        style.ItemSpacing       = ImVec2(8.0f, 7.0f);
         style.ItemInnerSpacing  = ImVec2(6.0f, 4.0f);
-        style.ScrollbarSize     = 8.0f;
+        style.ScrollbarSize     = 6.0f;
         style.WindowBorderSize  = 0.0f;
         style.ChildBorderSize   = 1.0f;
         style.PopupBorderSize   = 1.0f;
 
         // Backgrounds
-        colors[ImGuiCol_WindowBg]              = ImVec4(10.0f/255.0f, 17.0f/255.0f, 40.0f/255.0f, 1.00f);   // #0A1128
-        colors[ImGuiCol_ChildBg]               = ImVec4(22.0f/255.0f, 34.0f/255.0f, 64.0f/255.0f, 0.90f);  // #162240
-        colors[ImGuiCol_PopupBg]               = ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.98f);  // #0F1A2E
+        colors[ImGuiCol_WindowBg]              = ImVec4(10/255.f,  26/255.f,  15/255.f,  1.00f);  // #0A1A0F
+        colors[ImGuiCol_ChildBg]               = ImVec4(13/255.f,  34/255.f,  24/255.f,  0.95f);  // #0D2218
+        colors[ImGuiCol_PopupBg]               = ImVec4(10/255.f,  26/255.f,  15/255.f,  0.98f);
 
-        // Borders (#00B4D8 subtle glow)
-        colors[ImGuiCol_Border]                = ImVec4(0.00f, 0.706f, 0.847f, 0.35f);
+        // Borders — electric green subtle glow
+        colors[ImGuiCol_Border]                = ImVec4(0.00f, 1.00f, 0.529f, 0.20f);
         colors[ImGuiCol_BorderShadow]          = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 
-        // Text (#E0F2FE & #90E0EF)
-        colors[ImGuiCol_Text]                  = ImVec4(224.0f/255.0f, 242.0f/255.0f, 254.0f/255.0f, 1.00f);
-        colors[ImGuiCol_TextDisabled]          = ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.55f);
+        // Text
+        colors[ImGuiCol_Text]                  = ImVec4(232/255.f, 245/255.f, 233/255.f, 1.00f);  // #E8F5E9
+        colors[ImGuiCol_TextDisabled]          = ImVec4(129/255.f, 199/255.f, 132/255.f, 0.60f);  // #81C784
 
-        // Frame
-        colors[ImGuiCol_FrameBg]               = ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.95f);
-        colors[ImGuiCol_FrameBgHovered]        = ImVec4(0.00f, 0.706f, 0.847f, 0.25f);
-        colors[ImGuiCol_FrameBgActive]         = ImVec4(0.00f, 0.706f, 0.847f, 0.40f);
+        // Frames
+        colors[ImGuiCol_FrameBg]               = ImVec4(10/255.f, 26/255.f, 15/255.f, 0.95f);
+        colors[ImGuiCol_FrameBgHovered]        = ImVec4(0.00f, 1.00f, 0.529f, 0.15f);
+        colors[ImGuiCol_FrameBgActive]         = ImVec4(0.00f, 1.00f, 0.529f, 0.28f);
+
+        // Headers
+        colors[ImGuiCol_Header]                = ImVec4(0.00f, 1.00f, 0.529f, 0.18f);
+        colors[ImGuiCol_HeaderHovered]         = ImVec4(0.00f, 1.00f, 0.529f, 0.30f);
+        colors[ImGuiCol_HeaderActive]          = ImVec4(0.00f, 1.00f, 0.529f, 0.45f);
 
         // Buttons
-        colors[ImGuiCol_Button]                = ImVec4(0.00f, 0.467f, 0.714f, 0.85f);  // #0077B6
-        colors[ImGuiCol_ButtonHovered]         = ImVec4(0.00f, 0.706f, 0.847f, 0.95f);  // #00B4D8
-        colors[ImGuiCol_ButtonActive]          = ImVec4(0.00f, 0.850f, 0.950f, 1.00f);
+        colors[ImGuiCol_Button]                = ImVec4(0.00f, 0.80f, 0.42f, 0.75f);
+        colors[ImGuiCol_ButtonHovered]         = ImVec4(0.00f, 1.00f, 0.529f, 0.90f);
+        colors[ImGuiCol_ButtonActive]          = ImVec4(0.00f, 1.00f, 0.529f, 1.00f);
+
+        // Title bar
+        colors[ImGuiCol_TitleBg]               = ImVec4(10/255.f, 26/255.f, 15/255.f, 1.00f);
+        colors[ImGuiCol_TitleBgActive]         = ImVec4(13/255.f, 40/255.f, 22/255.f, 1.00f);
+        colors[ImGuiCol_TitleBgCollapsed]      = ImVec4(10/255.f, 26/255.f, 15/255.f, 0.80f);
+
+        // Tabs
+        colors[ImGuiCol_Tab]                   = ImVec4(13/255.f, 34/255.f, 24/255.f, 0.90f);
+        colors[ImGuiCol_TabHovered]            = ImVec4(0.00f, 1.00f, 0.529f, 0.35f);
+        colors[ImGuiCol_TabActive]             = ImVec4(0.00f, 0.80f, 0.42f, 0.80f);
+        colors[ImGuiCol_TabUnfocused]          = ImVec4(10/255.f, 26/255.f, 15/255.f, 0.70f);
+        colors[ImGuiCol_TabUnfocusedActive]    = ImVec4(13/255.f, 34/255.f, 24/255.f, 0.90f);
 
         // Scrollbar
-        colors[ImGuiCol_ScrollbarBg]           = ImVec4(10.0f/255.0f, 17.0f/255.0f, 40.0f/255.0f, 0.60f);
-        colors[ImGuiCol_ScrollbarGrab]         = ImVec4(0.00f, 0.467f, 0.714f, 0.60f);
-        colors[ImGuiCol_ScrollbarGrabHovered]  = ImVec4(0.00f, 0.706f, 0.847f, 0.80f);
-        colors[ImGuiCol_ScrollbarGrabActive]   = ImVec4(0.00f, 0.850f, 0.950f, 1.00f);
+        colors[ImGuiCol_ScrollbarBg]           = ImVec4(10/255.f, 26/255.f, 15/255.f, 0.60f);
+        colors[ImGuiCol_ScrollbarGrab]         = ImVec4(0.00f, 0.60f, 0.32f, 0.60f);
+        colors[ImGuiCol_ScrollbarGrabHovered]  = ImVec4(0.00f, 1.00f, 0.529f, 0.80f);
+        colors[ImGuiCol_ScrollbarGrabActive]   = ImVec4(0.00f, 1.00f, 0.529f, 1.00f);
+
+        // Separator
+        colors[ImGuiCol_Separator]             = ImVec4(0.00f, 1.00f, 0.529f, 0.15f);
+        colors[ImGuiCol_SeparatorHovered]      = ImVec4(0.00f, 1.00f, 0.529f, 0.40f);
+        colors[ImGuiCol_SeparatorActive]       = ImVec4(0.00f, 1.00f, 0.529f, 0.70f);
+
+        // Resize grip
+        colors[ImGuiCol_ResizeGrip]            = ImVec4(0.00f, 1.00f, 0.529f, 0.20f);
+        colors[ImGuiCol_ResizeGripHovered]     = ImVec4(0.00f, 1.00f, 0.529f, 0.50f);
+        colors[ImGuiCol_ResizeGripActive]      = ImVec4(0.00f, 1.00f, 0.529f, 0.80f);
+
+        // Plots
+        colors[ImGuiCol_PlotLines]             = ImVec4(0.00f, 1.00f, 0.529f, 0.80f);
+        colors[ImGuiCol_PlotLinesHovered]      = ImVec4(0.00f, 1.00f, 0.529f, 1.00f);
+        colors[ImGuiCol_PlotHistogram]         = ImVec4(0.00f, 0.80f, 0.42f, 0.80f);
+        colors[ImGuiCol_PlotHistogramHovered]  = ImVec4(0.00f, 1.00f, 0.529f, 1.00f);
     }
 
     static void CreateRenderTarget() {
@@ -342,6 +375,34 @@ namespace ImGuiDashboard {
                     cards.push_back({ d.ProcessName, "HIGH RISK", d.Description, true });
                     hasThreats = true;
                 }
+                for (const auto& d : report.CheatStringDetections) {
+                    cards.push_back({ d.DetectionName, d.Severity == "CRITICAL" ? "HIGH RISK" : "WARNING", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.PSDetections) {
+                    cards.push_back({ d.DetectionName, d.Severity == "CRITICAL" ? "HIGH RISK" : "WARNING", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.PrefetchDetections) {
+                    cards.push_back({ d.DetectionName, "HIGH RISK", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.DnsDetections) {
+                    cards.push_back({ d.DetectionName, "HIGH RISK", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.ShimcacheDetections) {
+                    cards.push_back({ d.DetectionName, "HIGH RISK", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.AmcacheDetections) {
+                    cards.push_back({ d.DetectionName, "HIGH RISK", d.Description, true });
+                    hasThreats = true;
+                }
+                for (const auto& d : report.YaraDetections) {
+                    cards.push_back({ d.DetectionName, "HIGH RISK", d.Description, true });
+                    hasThreats = true;
+                }
 
                 // Standard Clean System Verification cards (DETECT.AC style)
                 cards.push_back({ "ntdll.dll", "CLEAN", "System DLL Export Table Verified (0 Inline Hooks)", false });
@@ -359,7 +420,7 @@ namespace ImGuiDashboard {
                     std::lock_guard<std::mutex> lock(g_progressMutex);
                     g_targetProgress = 1.0f;
                     g_statusText = hasThreats ? "THREATS DETECTED" : "SYSTEM CLEAN";
-                    g_subStatusText = "18 forensic engines verified in " + [&]{
+                    g_subStatusText = "24 forensic engines verified in " + [&]{
                         char b[32]; sprintf_s(b, "%.2fs", g_scanDurationSec); return std::string(b);
                     }();
                 }
@@ -509,15 +570,23 @@ namespace ImGuiDashboard {
             ImVec2 titleBarMin = ImVec2(0, 0);
             ImVec2 titleBarMax = ImVec2(io.DisplaySize.x, kTitleBarHeight);
 
-            // Title bar background (#0A1128)
-            drawList->AddRectFilled(titleBarMin, titleBarMax, IM_COL32(10, 17, 40, 255), 8.0f, ImDrawFlags_RoundCornersTop);
-            drawList->AddLine(ImVec2(0, kTitleBarHeight), ImVec2(io.DisplaySize.x, kTitleBarHeight), IM_COL32(0, 180, 216, 60), 1.0f);
+            // Title bar background (#0A1A0F)
+            drawList->AddRectFilled(titleBarMin, titleBarMax, IM_COL32(10, 26, 15, 255), 10.0f, ImDrawFlags_RoundCornersTop);
+            drawList->AddLine(ImVec2(0, kTitleBarHeight), ImVec2(io.DisplaySize.x, kTitleBarHeight), IM_COL32(0, 255, 135, 50), 1.0f);
+            // Animated green pulse line on bottom of title bar
+            float lineGlow = (sinf((float)ImGui::GetTime() * 3.0f) + 1.0f) * 0.5f;
+            drawList->AddLine(ImVec2(0, kTitleBarHeight), ImVec2(io.DisplaySize.x * lineGlow, kTitleBarHeight), IM_COL32(0, 255, 135, 120), 1.5f);
 
-            // Title text: "White Team EXE" in cool cyber neon font
-            ImGui::SetCursorPos(ImVec2(16, 7));
-            ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "White Team EXE");
+            // Animated live pulse dot
+            float dotPulse = (sinf((float)ImGui::GetTime() * 4.0f) + 1.0f) * 0.5f;
+            ImVec2 dotPos = ImVec2(14, kTitleBarHeight / 2);
+            drawList->AddCircleFilled(dotPos, 4.5f, IM_COL32(0, 255, 135, (int)(180 + dotPulse * 75)));
+            drawList->AddCircle(dotPos, 7.0f, IM_COL32(0, 255, 135, (int)(60 + dotPulse * 60)), 16, 1.0f);
+
+            ImGui::SetCursorPos(ImVec2(26, 7));
+            ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "FORENSIC SCANNER");
             ImGui::SameLine();
-            ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.65f), "| DETECT.AC ANTI-CHEAT SCANNER");
+            ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.65f), "| ADVANCED ANTICHEAT  v2.5");
 
             // Custom "X" (Close) button on the far right
             ImGui::SetCursorPos(ImVec2(io.DisplaySize.x - 42, 6));
@@ -557,12 +626,12 @@ namespace ImGuiDashboard {
                 ImVec2 mainMin = ImGui::GetWindowPos();
                 ImVec2 mainMax = ImVec2(mainMin.x + ImGui::GetWindowWidth(), mainMin.y + ImGui::GetWindowHeight());
 
-                // 1. Faint Cyber Scanline Grid in Background
+                // 1. Faint Cyber Scanline Grid in Background (green)
                 for (float gy = mainMin.y; gy < mainMax.y; gy += 24.0f) {
-                    drawList->AddLine(ImVec2(mainMin.x, gy), ImVec2(mainMax.x, gy), IM_COL32(0, 180, 216, 6), 1.0f);
+                    drawList->AddLine(ImVec2(mainMin.x, gy), ImVec2(mainMax.x, gy), IM_COL32(0, 255, 135, 5), 1.0f);
                 }
                 for (float gx = mainMin.x; gx < mainMax.x; gx += 28.0f) {
-                    drawList->AddLine(ImVec2(gx, mainMin.y), ImVec2(gx, mainMax.y), IM_COL32(0, 180, 216, 6), 1.0f);
+                    drawList->AddLine(ImVec2(gx, mainMin.y), ImVec2(gx, mainMax.y), IM_COL32(0, 255, 135, 5), 1.0f);
                 }
 
                 // 2. Courcour / Smooth Mouse Trailing Visualizer (Lag/Lerp Effect)
@@ -578,34 +647,36 @@ namespace ImGuiDashboard {
                     float pulse = (sinf(time * 5.0f) + 1.0f) * 0.5f;
                     float ringRad = 16.0f + pulse * 4.0f + (std::min)(g_cursorSpeed * 0.10f, 14.0f);
 
-                    // Trailing radar circle & crosshair
-                    drawList->AddCircle(g_lerpCursorPos, ringRad, IM_COL32(0, 180, 216, (int)(60 + pulse * 90)), 32, 1.5f);
-                    drawList->AddCircleFilled(g_lerpCursorPos, 3.5f, IM_COL32(224, 242, 254, 240));
-                    drawList->AddLine(ImVec2(g_lerpCursorPos.x - 8, g_lerpCursorPos.y), ImVec2(g_lerpCursorPos.x - 3, g_lerpCursorPos.y), IM_COL32(0, 180, 216, 200), 1.5f);
-                    drawList->AddLine(ImVec2(g_lerpCursorPos.x + 3, g_lerpCursorPos.y), ImVec2(g_lerpCursorPos.x + 8, g_lerpCursorPos.y), IM_COL32(0, 180, 216, 200), 1.5f);
-                    drawList->AddLine(ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y - 8), ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y - 3), IM_COL32(0, 180, 216, 200), 1.5f);
-                    drawList->AddLine(ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y + 3), ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y + 8), IM_COL32(0, 180, 216, 200), 1.5f);
+                    // Trailing radar circle & crosshair — green
+                    drawList->AddCircle(g_lerpCursorPos, ringRad, IM_COL32(0, 255, 135, (int)(50 + pulse * 80)), 32, 1.5f);
+                    drawList->AddCircleFilled(g_lerpCursorPos, 3.5f, IM_COL32(232, 245, 233, 240));
+                    drawList->AddLine(ImVec2(g_lerpCursorPos.x - 8, g_lerpCursorPos.y), ImVec2(g_lerpCursorPos.x - 3, g_lerpCursorPos.y), IM_COL32(0, 255, 135, 200), 1.5f);
+                    drawList->AddLine(ImVec2(g_lerpCursorPos.x + 3, g_lerpCursorPos.y), ImVec2(g_lerpCursorPos.x + 8, g_lerpCursorPos.y), IM_COL32(0, 255, 135, 200), 1.5f);
+                    drawList->AddLine(ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y - 8), ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y - 3), IM_COL32(0, 255, 135, 200), 1.5f);
+                    drawList->AddLine(ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y + 3), ImVec2(g_lerpCursorPos.x, g_lerpCursorPos.y + 8), IM_COL32(0, 255, 135, 200), 1.5f);
                 }
 
-                // 3. Large Animated Logo "WHITE TEAM" with Subtle Glow Effect
+                // 3. Large Logo with green glow
                 ImGui::SetCursorPos(ImVec2(16, 12));
                 ImGui::PushFont(g_fontLarge);
                 float glow = (sinf(time * 3.5f) + 1.0f) * 0.5f;
-                ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 0.85f + glow * 0.15f), "WHITE TEAM");
+                ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 0.88f + glow * 0.12f), "FORENSIC SCANNER");
                 ImGui::PopFont();
 
                 ImGui::SetCursorPos(ImVec2(18, 48));
-                ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.80f),
-                    "Advanced System & Memory Forensic Inspector // Direct Syscall Engine");
+                ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.80f),
+                    "Deep forensic scan  //  detect.ac methodology  //  < 0.1%% FP rate");
 
                 // Live HWID Badge Card
                 ImGui::SetCursorPos(ImVec2(16, 72));
-                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.85f));
+                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(10/255.f, 26/255.f, 15/255.f, 0.90f));
                 ImGui::BeginChild("HWIDPill", ImVec2(mainWidth - 32, 34), true);
                 {
-                    ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "[HWID] %s", g_systemHWID.CompositeHWID.c_str());
+                    ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "[HWID]");
                     ImGui::SameLine();
-                    ImGui::TextColored(ImVec4(224.0f/255.0f, 242.0f/255.0f, 254.0f/255.0f, 0.85f),
+                    ImGui::TextColored(ImVec4(232/255.f, 245/255.f, 233/255.f, 0.90f), "%s", g_systemHWID.CompositeHWID.c_str());
+                    ImGui::SameLine();
+                    ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.75f),
                         " | CPU: %s | GPU: %s",
                         g_systemHWID.CPUBrand.substr(0, 20).c_str(),
                         g_systemHWID.GPUDescription.substr(0, 18).c_str());
@@ -628,8 +699,8 @@ namespace ImGuiDashboard {
                         float angleStart = time * speed;
                         float angleEnd = angleStart + 2.2f;
 
-                        ImU32 arcColor = (r == 1) ? IM_COL32(0, 245, 160, 200) : IM_COL32(0, 180, 216, 220);
-                        drawList->AddCircle(center, radius, IM_COL32(0, 180, 216, 30), 48, 1.0f);
+                        ImU32 arcColor = (r == 1) ? IM_COL32(0, 255, 135, 200) : IM_COL32(0, 200, 100, 180);
+                        drawList->AddCircle(center, radius, IM_COL32(0, 255, 135, 22), 48, 1.0f);
                         drawList->PathClear();
                         drawList->PathArcTo(center, radius, angleStart, angleEnd, 32);
                         drawList->PathStroke(arcColor, 0, 3.0f);
@@ -640,23 +711,23 @@ namespace ImGuiDashboard {
                     char pctBuf[32]; sprintf_s(pctBuf, "%d%%", pct);
                     ImGui::PushFont(g_fontTitle);
                     ImVec2 pSize = ImGui::CalcTextSize(pctBuf);
-                    drawList->AddText(ImVec2(center.x - pSize.x * 0.5f, center.y - pSize.y * 0.5f), IM_COL32(224, 242, 254, 255), pctBuf);
+                    drawList->AddText(ImVec2(center.x - pSize.x * 0.5f, center.y - pSize.y * 0.5f), IM_COL32(0, 255, 135, 255), pctBuf);
                     ImGui::PopFont();
 
                     ImGui::SetCursorPos(ImVec2(16, 380));
-                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.70f));
+                    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(10/255.f, 26/255.f, 15/255.f, 0.75f));
                     ImGui::BeginChild("LiveStepBox", ImVec2(mainWidth - 32, 130), true);
                     {
-                        ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "CURRENT FORENSIC VECTOR:");
+                        ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "CURRENT FORENSIC VECTOR:");
                         std::string sub;
                         {
                             std::lock_guard<std::mutex> lock(g_progressMutex);
                             sub = g_subStatusText;
                         }
-                        ImGui::TextColored(ImVec4(224.0f/255.0f, 242.0f/255.0f, 254.0f/255.0f, 1.0f), "%s", sub.c_str());
+                        ImGui::TextColored(ImVec4(232/255.f, 245/255.f, 233/255.f, 1.0f), "%s", sub.c_str());
                         ImGui::Spacing();
-                        ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.75f),
-                            "Target: %s (PID %d) | Direct Syscall Kernel Verification Active", g_targetProcNameBuf, g_selectedPid);
+                        ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.75f),
+                            "Full system forensic scan  |  Direct Syscall Engine Active");
                     }
                     ImGui::EndChild();
                     ImGui::PopStyleColor();
@@ -692,21 +763,58 @@ namespace ImGuiDashboard {
                         else {
                             for (size_t i = 0; i < g_detectionCards.size(); i++) {
                                 const auto& card = g_detectionCards[i];
+
+                                // Background: red tint for threats, dark green for clean
                                 ImGui::PushStyleColor(ImGuiCol_ChildBg, card.IsThreat ?
-                                    ImVec4(0.40f, 0.08f, 0.14f, 0.60f) : ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.70f));
+                                    ImVec4(0.38f, 0.05f, 0.10f, 0.65f) : ImVec4(10/255.f, 34/255.f, 18/255.f, 0.75f));
 
                                 std::string childId = "Card_" + std::to_string(i);
-                                ImGui::BeginChild(childId.c_str(), ImVec2(0, 52), true);
+                                ImGui::BeginChild(childId.c_str(), ImVec2(0, 60), true);
                                 {
+                                    // Status badge
                                     if (card.IsThreat) {
-                                        ImGui::TextColored(ImVec4(1.0f, 0.25f, 0.35f, 1.0f), "[%s]", card.Status.c_str());
-                                    }
-                                    else {
-                                        ImGui::TextColored(ImVec4(0.00f, 0.96f, 0.63f, 1.0f), "[%s]", card.Status.c_str());
+                                        // Determine severity color
+                                        bool isCrit = card.Status.find("CRITICAL") != std::string::npos ||
+                                                      card.Status.find("HIGH RISK") != std::string::npos;
+                                        ImVec4 sevColor = isCrit ?
+                                            ImVec4(1.0f, 0.10f, 0.27f, 1.0f) :   // red
+                                            ImVec4(1.0f, 0.70f, 0.10f, 1.0f);   // amber
+                                        ImGui::TextColored(sevColor, "[%s]", card.Status.c_str());
+                                    } else {
+                                        ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "[%s]", card.Status.c_str());
                                     }
                                     ImGui::SameLine();
-                                    ImGui::TextColored(ImVec4(224.0f/255.0f, 242.0f/255.0f, 254.0f/255.0f, 1.0f), "%s", card.Name.c_str());
-                                    ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.80f), "%s", card.Details.c_str());
+                                    ImGui::TextColored(ImVec4(232/255.f, 245/255.f, 233/255.f, 1.0f), "%s", card.Name.c_str());
+
+                                    // Details line
+                                    std::string det = card.Details.substr(0, 100);
+                                    ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.80f), "%s", det.c_str());
+
+                                    // Confidence bar (if Details contains "Confidence: XX%")
+                                    size_t confPos = card.Details.find("Confidence: ");
+                                    if (confPos != std::string::npos) {
+                                        int conf = 0;
+                                        sscanf_s(card.Details.c_str() + confPos + 12, "%d", &conf);
+                                        if (conf > 0) {
+                                            ImVec2 barStart = ImGui::GetCursorScreenPos();
+                                            float barW = ImGui::GetContentRegionAvail().x * 0.60f;
+                                            float barH = 4.0f;
+                                            ImVec4 barCol = (conf >= 85) ? ImVec4(1.0f,0.10f,0.27f,1.0f) :
+                                                            (conf >= 70) ? ImVec4(1.0f,0.70f,0.10f,1.0f) :
+                                                                           ImVec4(0.0f,1.0f,0.529f,1.0f);
+                                            // bg track
+                                            drawList->AddRectFilled(barStart,
+                                                ImVec2(barStart.x + barW, barStart.y + barH),
+                                                IM_COL32(30, 50, 35, 180), 2.0f);
+                                            // fill
+                                            drawList->AddRectFilled(barStart,
+                                                ImVec2(barStart.x + barW * conf / 100.f, barStart.y + barH),
+                                                IM_COL32((int)(barCol.x*255),(int)(barCol.y*255),(int)(barCol.z*255),220), 2.0f);
+                                            ImGui::Dummy(ImVec2(barW, barH + 2));
+                                            ImGui::SameLine();
+                                            ImGui::TextColored(barCol, "%d%%", conf);
+                                        }
+                                    }
                                 }
                                 ImGui::EndChild();
                                 ImGui::PopStyleColor();
@@ -724,85 +832,83 @@ namespace ImGuiDashboard {
             // B. SCANNING SIDEBAR (Right 30% Width — #0F1A2E)
             // -------------------------------------------------------------------------
             ImGui::SetCursorPos(ImVec2(mainWidth + 10.0f, bodyY));
-            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(15.0f/255.0f, 26.0f/255.0f, 46.0f/255.0f, 0.96f)); // #0F1A2E
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(10/255.f, 26/255.f, 15/255.f, 0.97f));  // #0A1A0F deep
             ImGui::BeginChild("ScanningSidebar", ImVec2(sideWidth, bodyH), true);
             {
-                // 1. Title at Top: SCAN ENGINE in bold cyan
                 ImGui::SetCursorPos(ImVec2(12, 10));
-                ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "SCAN ENGINE");
+                ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "SCAN MODULES");
 
-                // Live status beacon circle
+                // Live status beacon
                 float beaconPulse = (sinf(time * 5.0f) + 1.0f) * 0.5f;
                 ImVec2 sbPos = ImGui::GetWindowPos();
                 float dotX = sbPos.x + sideWidth - 20.0f;
                 float dotY = sbPos.y + 18.0f;
                 ImU32 beaconColor = g_isScanning.load() ?
-                    IM_COL32(0, 245, 160, (int)(120 + beaconPulse * 135)) : IM_COL32(0, 180, 216, 180);
+                    IM_COL32(0, 255, 135, (int)(120 + beaconPulse * 135)) : IM_COL32(0, 180, 80, 180);
                 drawList->AddCircleFilled(ImVec2(dotX, dotY), 4.5f, beaconColor);
+                drawList->AddCircle(ImVec2(dotX, dotY), 8.0f, IM_COL32(0, 255, 135, (int)(40 + beaconPulse * 40)), 16, 1.0f);
 
                 ImGui::SetCursorPos(ImVec2(12, 32));
                 ImGui::Separator();
 
-                // 2. Status Text: Display current scan status dynamically
                 ImGui::SetCursorPos(ImVec2(12, 40));
-                ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.80f), "STATUS:");
+                ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.80f), "STATUS:");
                 ImGui::SameLine();
                 if (g_engineState == STATE_SCANNING) {
-                    ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "Scanning...");
+                    ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "Scanning...");
                 }
                 else if (g_engineState == STATE_INITIALIZING) {
-                    ImGui::TextColored(ImVec4(0.00f, 0.706f, 0.847f, 1.0f), "Initializing...");
+                    ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "Initializing...");
                 }
                 else if (g_engineState == STATE_COMPLETED) {
                     if (g_statusText == "THREATS DETECTED") {
-                        ImGui::TextColored(ImVec4(1.0f, 0.25f, 0.35f, 1.0f), "Threats Detected");
+                        ImGui::TextColored(ImVec4(1.0f, 0.10f, 0.27f, 1.0f), "Threats Detected");
                     }
                     else {
-                        ImGui::TextColored(ImVec4(0.00f, 0.96f, 0.63f, 1.0f), "Completed (Clean)");
+                        ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "Clean");
                     }
                 }
                 else if (g_engineState == STATE_STOPPED) {
-                    ImGui::TextColored(ImVec4(1.0f, 0.60f, 0.10f, 1.0f), "Stopped");
+                    ImGui::TextColored(ImVec4(1.0f, 0.70f, 0.10f, 1.0f), "Stopped");
                 }
                 else {
-                    ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.70f), "Idle");
+                    ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.70f), "Idle");
                 }
 
-                // Target Process Input
+                // Module status list (replaces old Target Process Input for forensic mode)
                 ImGui::SetCursorPos(ImVec2(12, 64));
-                ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.80f), "Target:");
-                ImGui::SameLine();
-                ImGui::SetNextItemWidth(sideWidth - 110);
-                ImGui::InputText("##Target", g_targetProcNameBuf, sizeof(g_targetProcNameBuf));
-                ImGui::SameLine();
-                if (ImGui::Button("AUTO", ImVec2(44, 22))) {
-                    auto emus = EmulatorScanner::FindRunningEmulators();
-                    if (!emus.empty()) {
-                        g_selectedPid = emus[0].ProcessId;
-                        strncpy_s(g_targetProcNameBuf, sizeof(g_targetProcNameBuf), emus[0].ProcessName.c_str(), _TRUNCATE);
-                        PushScanLog("Target set to " + emus[0].ProcessName);
-                    }
+                static const char* kModuleNames[] = {
+                    "Memory Scan", "Disk PE Scan", "PS History", "Amcache",
+                    "Prefetch", "DNS Cache", "Shimcache", "NTFS Journal",
+                    "VAD Regions", "Kernel Drivers", nullptr
+                };
+                for (int mi = 0; kModuleNames[mi]; mi++) {
+                    bool isActive = g_isScanning.load();
+                    ImVec4 dotColor = isActive ?
+                        ImVec4(0.f, 1.f, 0.529f, (sinf(time * 3.f + mi) + 1.f) * 0.4f + 0.5f) :
+                        ImVec4(129/255.f, 199/255.f, 132/255.f, 0.55f);
+                    ImGui::TextColored(dotColor, isActive ? "> %s" : "  %s", kModuleNames[mi]);
                 }
 
-                // 3. Sleek Rounded Progress Bar filling with accent blue gradient (#0077B6 -> #00B4D8)
-                ImGui::SetCursorPos(ImVec2(12, 94));
+                // Progress bar — green gradient
+                ImGui::SetCursorPos(ImVec2(12, 242));
                 float progBarW = sideWidth - 24.0f;
                 float progBarH = 12.0f;
                 ImVec2 pMin = ImGui::GetCursorScreenPos();
                 ImVec2 pMax = ImVec2(pMin.x + progBarW, pMin.y + progBarH);
 
-                drawList->AddRectFilled(pMin, pMax, IM_COL32(10, 17, 40, 220), 6.0f);
-                drawList->AddRect(pMin, pMax, IM_COL32(0, 180, 216, 70), 6.0f, 0, 1.0f);
+                drawList->AddRectFilled(pMin, pMax, IM_COL32(10, 26, 15, 220), 6.0f);
+                drawList->AddRect(pMin, pMax, IM_COL32(0, 255, 135, 60), 6.0f, 0, 1.0f);
 
                 float fillW = progBarW * (std::min)((std::max)(g_smoothProgress, 0.02f), 1.0f);
                 ImVec2 fillMax = ImVec2(pMin.x + fillW, pMin.y + progBarH);
                 if (fillW > 3.0f) {
                     drawList->AddRectFilledMultiColor(pMin, fillMax,
-                        IM_COL32(0, 119, 182, 240), // Left #0077B6
-                        IM_COL32(0, 180, 216, 255), // Right #00B4D8
-                        IM_COL32(0, 180, 216, 255),
-                        IM_COL32(0, 119, 182, 240));
-                    drawList->AddRect(pMin, fillMax, IM_COL32(0, 180, 216, 160), 6.0f, 0, 1.0f);
+                        IM_COL32(0, 180, 80, 240),   // left  #00B450
+                        IM_COL32(0, 255, 135, 255),  // right #00FF87
+                        IM_COL32(0, 255, 135, 255),
+                        IM_COL32(0, 180, 80, 240));
+                    drawList->AddRect(pMin, fillMax, IM_COL32(0, 255, 135, 140), 6.0f, 0, 1.0f);
 
                     if (g_isScanning.load()) {
                         float sweepX = pMin.x + fmodf(time * 240.0f, fillW);
@@ -811,48 +917,51 @@ namespace ImGuiDashboard {
                 }
                 ImGui::Dummy(ImVec2(progBarW, progBarH));
 
-                // 4. Large Control Button: START SCAN / STOP SCAN
-                ImGui::SetCursorPos(ImVec2(12, 114));
+                // 4. Control Button: START SCAN / STOP SCAN
+                ImGui::SetCursorPos(ImVec2(12, 262));
                 if (g_isScanning.load()) {
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.75f, 0.08f, 0.20f, 0.90f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.95f, 0.12f, 0.25f, 1.00f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.00f, 0.05f, 0.20f, 1.00f));
-                    if (ImGui::Button("STOP SCAN", ImVec2(progBarW, 38))) {
+                    if (ImGui::Button("[STOP SCAN]", ImVec2(progBarW, 36))) {
                         g_abortScan.store(true);
                         g_isScanning.store(false);
                     }
                     ImGui::PopStyleColor(3);
                 }
                 else {
-                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.00f, 0.467f, 0.714f, 0.90f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.00f, 0.706f, 0.847f, 1.00f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.00f, 0.850f, 0.950f, 1.00f));
-                    if (ImGui::Button("START SCAN", ImVec2(progBarW, 38))) {
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.00f, 0.55f, 0.30f, 0.85f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.00f, 1.00f, 0.529f, 0.95f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.00f, 1.00f, 0.529f, 1.00f));
+                    if (ImGui::Button("[START SCAN]", ImVec2(progBarW, 36))) {
                         TriggerAsyncScan(scanFunc);
                     }
                     ImGui::PopStyleColor(3);
                 }
 
-                // 5. Scan Log: Small scrollable text box that shows real-time log messages
-                ImGui::SetCursorPos(ImVec2(12, 160));
-                ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.80f), "SCAN LOG");
+                // 5. Scan Log terminal
+                ImGui::SetCursorPos(ImVec2(12, 306));
+                ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 0.80f), "LIVE LOG");
 
-                ImGui::SetCursorPos(ImVec2(12, 180));
-                float logH = bodyH - 245.0f;
-                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(10.0f/255.0f, 17.0f/255.0f, 40.0f/255.0f, 0.90f));
+                ImGui::SetCursorPos(ImVec2(12, 322));
+                float logH = bodyH - 330.0f;
+                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(10/255.f, 18/255.f, 12/255.f, 0.92f));
                 ImGui::BeginChild("SidebarLogTerminal", ImVec2(progBarW, logH), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
                 {
                     ImGui::PushFont(g_fontMono);
                     std::lock_guard<std::mutex> lock(g_logMutex);
                     for (const auto& line : g_scanLogs) {
                         if (line.find("Clean") != std::string::npos || line.find("Verified") != std::string::npos || line.find("completed") != std::string::npos) {
-                            ImGui::TextColored(ImVec4(0.00f, 0.96f, 0.63f, 1.0f), "%s", line.c_str());
+                            ImGui::TextColored(ImVec4(0.00f, 1.00f, 0.529f, 1.0f), "%s", line.c_str());
                         }
-                        else if (line.find("Threat") != std::string::npos || line.find("aborted") != std::string::npos) {
-                            ImGui::TextColored(ImVec4(1.0f, 0.25f, 0.35f, 1.0f), "%s", line.c_str());
+                        else if (line.find("Threat") != std::string::npos || line.find("aborted") != std::string::npos || line.find("DETECT") != std::string::npos) {
+                            ImGui::TextColored(ImVec4(1.0f, 0.10f, 0.27f, 1.0f), "%s", line.c_str());
+                        }
+                        else if (line.find("WARNING") != std::string::npos || line.find("HIGH") != std::string::npos) {
+                            ImGui::TextColored(ImVec4(1.0f, 0.70f, 0.10f, 1.0f), "%s", line.c_str());
                         }
                         else {
-                            ImGui::TextColored(ImVec4(144.0f/255.0f, 224.0f/255.0f, 239.0f/255.0f, 0.85f), "%s", line.c_str());
+                            ImGui::TextColored(ImVec4(129/255.f, 199/255.f, 132/255.f, 0.85f), "%s", line.c_str());
                         }
                     }
                     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {

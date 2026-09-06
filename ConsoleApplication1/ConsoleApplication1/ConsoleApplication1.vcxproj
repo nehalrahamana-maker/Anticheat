@@ -78,6 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -93,6 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -106,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;$(ProjectDir)GUI;$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -121,6 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;$(ProjectDir)Scanners;$(ProjectDir)Reporting;$(ProjectDir)GUI;$(ProjectDir)ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -154,9 +158,15 @@
     <ClCompile Include="Scanners\SpoofedThreadScanner.cpp" />
     <ClCompile Include="Scanners\EncryptedStringScanner.cpp" />
     <ClCompile Include="Scanners\CheatStringScanner.cpp" />
+    <ClCompile Include="Scanners\PowerShellClearedRunScanner.cpp" />
+    <ClCompile Include="Scanners\PrefetchScanner.cpp" />
+    <ClCompile Include="Scanners\DnsCacheScanner.cpp" />
+    <ClCompile Include="Scanners\ShimcacheScanner.cpp" />
+    <ClCompile Include="Scanners\AmcacheScanner.cpp" />
     <ClCompile Include="Scanners\ETWScanner.cpp" />
     <ClCompile Include="Scanners\ProcessHollowingScanner.cpp" />
     <ClCompile Include="Scanners\VirusTotalScanner.cpp" />
+    <ClCompile Include="Scanners\YaraScanner.cpp" />
     <ClCompile Include="Reporting\ReportGenerator.cpp" />
     <ClCompile Include="GUI\ImGuiDashboard.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
@@ -191,9 +201,15 @@
     <ClInclude Include="Scanners\SpoofedThreadScanner.hpp" />
     <ClInclude Include="Scanners\EncryptedStringScanner.hpp" />
     <ClInclude Include="Scanners\CheatStringScanner.hpp" />
+    <ClInclude Include="Scanners\PowerShellClearedRunScanner.hpp" />
+    <ClInclude Include="Scanners\PrefetchScanner.hpp" />
+    <ClInclude Include="Scanners\DnsCacheScanner.hpp" />
+    <ClInclude Include="Scanners\ShimcacheScanner.hpp" />
+    <ClInclude Include="Scanners\AmcacheScanner.hpp" />
     <ClInclude Include="Scanners\ETWScanner.hpp" />
     <ClInclude Include="Scanners\ProcessHollowingScanner.hpp" />
     <ClInclude Include="Scanners\VirusTotalScanner.hpp" />
+    <ClInclude Include="Scanners\YaraScanner.hpp" />
     <ClInclude Include="Reporting\ReportGenerator.hpp" />
     <ClInclude Include="GUI\ImGuiDashboard.hpp" />
     <ClInclude Include="ImGui\imgui.h" />

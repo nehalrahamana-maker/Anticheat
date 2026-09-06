@@ -25,10 +25,12 @@ namespace CheatStringScanner {
         std::wstring FilePath;
 
         // Detection info
-        std::string  MatchedString;     // The keyword that triggered the hit
-        std::string  ContextSnippet;    // Up to 128 printable chars surrounding the hit
-        std::string  Category;          // e.g. "AIMBOT", "SPOOFER", "BYPASS", etc.
-        std::string  Severity;          // "CRITICAL" or "HIGH"
+        std::string  MatchedString;          // The keyword that triggered the hit
+        std::string  ContextSnippet;         // Up to 128 printable chars surrounding the hit
+        std::string  Category;               // e.g. "AIMBOT", "SPOOFER", "BYPASS", etc.
+        std::string  Severity;               // "CRITICAL", "HIGH", "MEDIUM"
+        int          ConfidenceScore  = 0;   // 0-100 multi-factor confidence
+        std::string  VerificationDetail;     // Human-readable verification evidence
         std::string  Description;
     };
 
